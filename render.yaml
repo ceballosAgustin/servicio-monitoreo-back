@@ -1,3 +1,8 @@
-build:
-  commands:
-    - ./mvnw clean package
+services:
+  - type: web
+    name: servicio-monitoreo-back-v2
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    buildCommand: "./mvnw clean package"
+    startCommand: "java -jar /app.jar"
