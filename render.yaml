@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: servicio-monitoreo-back-v2
-    env: docker
-    plan: free
-    dockerfilePath: ./Dockerfile
-    buildCommand: "./mvnw clean package"
