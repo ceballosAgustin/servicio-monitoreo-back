@@ -23,44 +23,7 @@ public class PaisService implements IPaisService {
     public PaisService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
-
-    @Override
-    public List<Map<String, String>> obtenerPaises() {
-        try {
-            ResponseEntity<Object[]> response = restTemplate.exchange(
-                apiUrl,
-                HttpMethod.GET,
-                null,
-                Object[].class
-            );
-
-            List<Map<String, String>> paises = new ArrayList<>();
-            if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-                for (Object pais : response.getBody()) {
-                    Map<String, Object> paisMap = (Map<String, Object>) pais;
-                    Map<String, Object> name = (Map<String, Object>) paisMap.get("name");
-                    Map<String, Object> flags = (Map<String, Object>) paisMap.get("flags");
-
-                    if (name != null && flags != null) {
-                        String nombre = (String) name.get("common");
-                        String bandera = (String) flags.get("svg");
-
-                        Map<String, String> paisInfo = new HashMap<>();
-                        paisInfo.put("nombre", nombre);
-                        paisInfo.put("bandera", bandera);
-
-                        paises.add(paisInfo);
-                    }
-                }
-            }
-
-            return paises;
-        } catch (Exception e) {
-            System.out.println("Error al obtener los países: " + e.getMessage());
-            throw new RuntimeException("Error al obtener los países", e);
-        }
-    }
-
+    
     @Override
     public String obtenerBanderaPais(String nombrePais) {
         String url = "https://restcountries.com/v3.1/name/" + nombrePais;

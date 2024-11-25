@@ -39,7 +39,7 @@ public class PlantaService implements IPlantaService{
     @Transactional
     public Planta crearPlanta(Planta planta) {
         planta.setNombre(planta.getNombre().trim());
-
+        
         if(existePorNombre(planta.getNombre())) {
             throw new IllegalArgumentException("El nombre de la planta ya está en uso, escoja otro");
         }
@@ -105,4 +105,5 @@ public class PlantaService implements IPlantaService{
     public boolean existePorNombre(String nombre) {
         return plantaRepository.existsByNombre(nombre);
     }
+
 }
